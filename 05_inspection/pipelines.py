@@ -8,12 +8,12 @@ from zenml import pipeline, step
 
 @step(settings={"docker": {"requirements": ["pandas>=2.2,<4"]}})
 def import_missing_remote_package() -> str:
-    """Fail remotely because this package is intentionally absent from the image."""
-    # Keep the import inside the step: the local client can submit the pipeline,
-    # while the remote step image fails at execution time.
-    import zenml_workshop_package_that_does_not_exist  # type: ignore[import-not-found]  # noqa: F401
+    """Use a dependency that is declared in the remote step image."""
+    # Keep the import inside the step so the remote image boundary is tested.
+    # pandas is declared below and in the repository requirements.
+    import pandas as remote_pandas
 
-    return "This line is unreachable in the intended exercise."
+    return remote_pandas.__version__
 
 
 @pipeline(name="05-remote-dependency-missing", enable_cache=False)
@@ -24,18 +24,19 @@ def missing_dependency_pipeline() -> None:
 
 @step
 def produce_legacy_customer_table() -> Annotated[pd.DataFrame, "legacy_customer_table"]:
-    """Produce a table missing the churn target required by the consumer."""
+    """Produce a table satisfying the current customer contract."""
     return pd.DataFrame(
         {
             "customer_id": [101, 102, 103],
             "tenure_months": [4, 18, 31],
+            "churned": [0, 1, 0],
         }
     )
 
 
 @step
 def validate_customer_contract(data: pd.DataFrame) -> int:
-    """Fail with an actionable error when required churn fields are absent."""
+    """Validate the customer table contract before downstream processing."""
     required = {"customer_id", "tenure_months", "churned"}
     missing = sorted(required - set(data.columns))
     if missing:
