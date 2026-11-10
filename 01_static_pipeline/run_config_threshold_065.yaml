@@ -1,0 +1,22 @@
+# Same pipeline configuration, with only the customer-review threshold changed.
+run_name: 01-static-churn-threshold-065_{date}_{time}
+enable_cache: true
+enable_artifact_visualization: true
+tags:
+  - workshop
+  - chapter-01
+  - threshold-065
+
+parameters:
+  n_customers: 1200
+  seed: 17
+  test_size: 0.25
+  regularization: 1.0
+  threshold: 0.65
+
+steps:
+  train_churn_model:
+    enable_step_logs: true
+  create_evaluation_report:
+    enable_cache: false
+    enable_artifact_visualization: true

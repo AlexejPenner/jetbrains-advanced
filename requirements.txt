@@ -1,0 +1,9 @@
+zenml>=0.98.1
+# ZenML 0.98.1's Kubernetes connector calls ApiClient.call_api(auth_settings=...).
+# Kubernetes Python client 37 removed that parameter; keep the local client compatible.
+kubernetes==25.3.0
+pandas>=2.2,<4
+numpy>=1.26,<3
+scikit-learn>=1.4,<2
+opentelemetry-api==1.43.0
+opentelemetry-sdk==1.43.0
