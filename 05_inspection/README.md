@@ -30,11 +30,3 @@ For each failed run, follow the same evidence trail:
 
 The dependency example tests the boundary between the local client and remote step image. The schema example tests whether artifact lineage makes a data contract violation easy to locate. These failures are deliberately bounded and deterministic; they do not simulate Kubernetes eviction, network outages, or production data loss.
 
-## Questions for review
-
-- Did the run fail during submission, image preparation, or step execution?
-- What exact evidence identifies the root cause?
-- Which parts of the failure remain visible in ZenML after the step stops?
-- What would need to be captured from Kubernetes, the image builder, or external logs to complete the diagnosis?
-- Which code, dependency, or artifact contract should change before retrying?
-- What evidence would make this failure easier to diagnose on the next run?

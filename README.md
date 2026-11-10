@@ -38,14 +38,6 @@ A dynamic pipeline lets runtime results control which steps or child pipelines a
 
 ZenML 0.98.1 includes fixes for integration dependency installs and GCP runner OpenTelemetry compatibility. ZenML 0.98.0 added webhook event filters that can match provider event fields. These releases connect to dependency reliability and trigger design.
 
-## Questions people may ask before the first run
-
-- Why choose bank churn for this example, and which parts of the data are synthetic?
-- What can the score justify, and what should it never decide automatically?
-- Can I participate without ZenML Cloud, AWS credentials, or Docker?
-- Is this a code-along or an instructor-led demo?
-- What should I install if I want to try the code afterward?
-
 ## Setup
 
 Use ZenML 0.98.1 or later, and install the optional tabular-ML dependencies from this folder:

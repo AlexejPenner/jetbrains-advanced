@@ -19,17 +19,3 @@ zenml trigger platform-event create churn-review-on-upstream-completion pipeline
 zenml trigger platform-event attach churn-review-on-upstream-completion TARGET_SNAPSHOT_ID
 ```
 
-## Questions to expect
-
-- What does a snapshot preserve, and what still comes from the stack at run time?
-- Why create a run template if the snapshot already has defaults?
-- Does a trigger run the template or the attached snapshot?
-- What is the difference between schedule, platform-event, and webhook triggers?
-- Which event should start churn scoring: data refresh completion or a calendar time?
-- What happens if the source emits the event twice?
-- How do we prevent overlapping scheduled runs?
-- What does `skip` concurrency mean?
-- Can a trigger pass run parameters?
-- If pipeline code changes, does an attached trigger automatically run the new version?
-- How do I inspect, deactivate, or replace a trigger targeting an obsolete snapshot?
-- When is a webhook a better fit than a platform event?

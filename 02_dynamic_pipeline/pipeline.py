@@ -38,7 +38,7 @@ def discover_segments(data: pd.DataFrame) -> Annotated[list[str], "segments"]:
     ]
 
 
-@step
+@step(runtime="isolated")
 def segment_metrics(data: pd.DataFrame, segment: str) -> Annotated[dict[str, float | int | str], "segment_metrics"]:
     """Calculate churn rate and average profile for a segment.
 

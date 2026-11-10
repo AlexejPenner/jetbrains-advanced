@@ -36,21 +36,3 @@ Both YAML files enable caching for the run. `create_evaluation_report` opts out 
 
 This is a deliberate teaching example, not a blanket recommendation to disable caching on reports. For a deterministic report with no freshness requirement, caching is usually useful.
 
-## Questions to expect
-
-- Which dependencies belong in the local client environment, and which belong in a step image?
-- Why not install every dependency in every step image?
-- If a dependency is declared on a step, does the local client need it too?
-- Why are ML imports inside the step functions instead of at module scope?
-- Which settings belong in code, run YAML, or the stack?
-- What should be a tag versus a run parameter or part of the run name?
-- Which stable tags make runs easier to discover across chapters or scenarios?
-- How does the YAML configuration get applied to the pipeline call?
-- What wins if code and YAML both set the same parameter or setting?
-- Which parts of the resolved configuration are captured in the snapshot/run?
-- Which step settings does this orchestrator support, and how can you tell when a setting is ignored?
-- Why keep caching enabled for training but disable it for the timestamped report?
-- What should change in the cache when only the review threshold changes?
-- How would you pin a transitive dependency or use a private package index?
-- What evidence would you inspect when a package imports locally but fails in the remote image?
-- Would you put credentials or workspace-specific endpoints in this YAML file?
