@@ -15,7 +15,7 @@ Pipeline names begin with their chapter number (`01`, `02`). Chapter 1 runs two 
 3. `02_dynamic_pipeline/`: runtime-derived cohorts, mapped diagnostics, aggregation, an explicit data-driven `if/else` branch, and a runtime loop that launches child deep dives for selected cohorts.
 4. `03_template_and_trigger/`: snapshot → run template → schedule or platform-event trigger, including ownership, concurrency, and deactivation.
 5. `04_execution_choices/`: regular steps, `CommandStep`, Sandbox, and step operators, including dependency boundaries, artifact handoff, credentials, and specialized runtimes. The SageMaker example may launch billable compute.
-6. `05_inspection/`: pipeline runs, snapshots, parameters, artifacts, logs, cache, and failures in the UI/CLI.
+6. `05_inspection/`: three isolated failure examples—deleted cached artifact, missing remote dependency, and schema-contract mismatch—with a consistent run-to-evidence troubleshooting sequence.
 
 ## What static means
 
