@@ -6,6 +6,13 @@ tags:
   - workshop
   - chapter-01
   - threshold-040
+docker:
+  requirements:
+    - pandas>=2.2,<4
+    - numpy>=1.26,<3
+    - scikit-learn>=1.4.1,<2
+    - opentelemetry-api==1.43.0
+    - opentelemetry-sdk==1.43.0
 
 parameters:
   n_customers: 1200
@@ -19,5 +26,11 @@ steps:
     enable_step_logs: true
     enable_cache: false
   create_evaluation_report:
+    docker:
+      requirements:
+        - pandas>=2.2,<4
+        - numpy>=1.26,<3
+        - opentelemetry-api==1.43.0
+        - opentelemetry-sdk==1.43.0
     enable_cache: false
     enable_artifact_visualization: true

@@ -12,16 +12,8 @@ path.append(str(Path(__file__).resolve().parents[1] / "00_domain"))
 from data_steps import load_customer_data
 from domain import FEATURES
 
-_MODEL_REQUIREMENTS = [
-    "pandas>=2.2,<4",
-    "numpy>=1.26,<3",
-    "scikit-learn>=1.4,<2",
-    "opentelemetry-api==1.43.0",
-    "opentelemetry-sdk==1.43.0",
-]
 
-
-@step(settings={"docker": {"requirements": _MODEL_REQUIREMENTS}})
+@step()
 def validate_and_split(data: pd.DataFrame, test_size: float = 0.25, seed: int = 17) -> tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
     """Validate schema and create a stratified train/test split.
 
@@ -51,7 +43,7 @@ def validate_and_split(data: pd.DataFrame, test_size: float = 0.25, seed: int = 
     return x_train, x_test, y_train, y_test
 
 
-@step(settings={"docker": {"requirements": _MODEL_REQUIREMENTS}})
+@step()
 def train_churn_model(x_train: pd.DataFrame, y_train: pd.Series, regularization: float = 1.0) -> Annotated[object, "churn_model"]:
     """Fit a scaled logistic-regression baseline.
 
@@ -73,7 +65,7 @@ def train_churn_model(x_train: pd.DataFrame, y_train: pd.Series, regularization:
     return model
 
 
-@step(settings={"docker": {"requirements": _MODEL_REQUIREMENTS}})
+@step()
 def evaluate_model(model: object, x_test: pd.DataFrame, y_test: pd.Series) -> Annotated[dict[str, float], "evaluation_metrics"]:
     """Evaluate on held-out data and report threshold-independent and thresholded metrics.
 
@@ -99,7 +91,7 @@ def evaluate_model(model: object, x_test: pd.DataFrame, y_test: pd.Series) -> An
     }
 
 
-@step(settings={"docker": {"requirements": _MODEL_REQUIREMENTS}})
+@step()
 def score_customers(model: object, x_test: pd.DataFrame, threshold: float = 0.5) -> Annotated[pd.DataFrame, "customer_risk_scores"]:
     """Produce risk scores and a review flag for held-out customers.
 
@@ -117,15 +109,6 @@ def score_customers(model: object, x_test: pd.DataFrame, threshold: float = 0.5)
 
 @step(
     enable_cache=False,
-    settings={
-        "docker": {
-            "requirements": [
-                "pandas>=2.2,<4",
-                "opentelemetry-api==1.43.0",
-                "opentelemetry-sdk==1.43.0",
-            ]
-        }
-    },
 )
 def create_evaluation_report(
     metrics: dict[str, float],

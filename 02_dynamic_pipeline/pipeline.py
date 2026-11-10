@@ -147,7 +147,7 @@ def deep_dive_segment(data: pd.DataFrame, segment: str) -> Annotated[dict[str, f
     }
 
 
-@pipeline(name="02a-segment-deep-dive", dynamic=True)
+@pipeline(name="02a-segment-deep-dive", dynamic=True, enable_cache=False)
 def segment_deep_dive_subpipeline(
     segment: str,
     n_customers: int = 1200,
@@ -161,6 +161,7 @@ def segment_deep_dive_subpipeline(
 @pipeline(
     name="02-dynamic-segment-analysis",
     dynamic=True,
+    enable_cache=False,
     settings={
         "docker": {
             "requirements": [
@@ -220,3 +221,11 @@ def dynamic_segment_analysis_pipeline(
             n_customers=n_customers,
             seed=seed,
         )
+@step(name="step2", enable_cache=False)
+def step2():
+    return "step2"
+
+@pipeline(name="parent", dynamic=False, enable_cache=False)
+def parent_pipeline():
+    step(name="step1", enable_cache=False)
+    dynamic_segment_analysis_pipeline()
