@@ -11,7 +11,7 @@ The examples use isolated pipeline names and synthetic data. They do not alter C
 
 ## Run order
 
-Run each example from this directory against the prepared remote stack. Both examples fail on their first run:
+Run each example from this directory against the prepared remote stack. The checked-in pipelines now succeed; use the recorded failed runs in ZenML to practice diagnosis, then run the corrected versions:
 
 ```bash
 python run_remote_dependency_missing.py
@@ -23,10 +23,10 @@ python run_schema_contract_mismatch.py
 For each failed run, follow the same evidence trail:
 
 1. Identify the failed step and distinguish a step failure from a pipeline submission or image-build failure.
-2. Read the complete step log and record the exception or missing evidence.
+2. Read the complete step log and record the exception or missing evidence from the failed run.
 3. Inspect the step's inputs, outputs, configuration, and cache status.
 4. Compare the observed failure with the expected signature above. Check whether the evidence is sufficient to explain the failure without guessing.
-5. State the smallest next diagnostic action: add the missing package to the correct image or repair the producer-consumer schema contract.
+5. Compare the corrected run with the failed run: the dependency step should complete, and the consumer should receive the `churned` column.
 
 The dependency example tests the boundary between the local client and remote step image. The schema example tests whether artifact lineage makes a data contract violation easy to locate. These failures are deliberately bounded and deterministic; they do not simulate Kubernetes eviction, network outages, or production data loss.
 
